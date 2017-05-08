@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	  <meta charset="utf-8">
+	  <title>Fetching xkcd of the day !</title>
+	  <style>
+			img
+			{
+			  height: auto;
+			  width: auto;
+			  align: middle;
+			}
+	  </style>
+	  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+	</head>
+	<body style="background-color:#065fa3;background-position: center; background-image: url('https://imgs.xkcd.com/comics/wait_wait.png');
+    background-repeat: no-repeat">
+		<script>
+			var randomImage = Math.floor(Math.random()*(1828-1+1)+1);
+			var randomURL= 'http://dynamic.xkcd.com/api-0/jsonp/comic/'+randomImage
+			$(document).ready(function()
+			{
+                $.ajax({
+                    url: randomURL,
+                    dataType: 'jsonp',
+                    success: function(dataWeGotViaJsonp){
+                    	console.log(dataWeGotViaJsonp.img);
+                    	var comicImage = document.getElementById("comic");
+                    	document.body.style.backgroundImage = "url('"+dataWeGotViaJsonp.img+"')";
+                    }
+                });
+            })
+		</script>
+		<div id="wrapper" style="width:100%; text-align:center; visibility:hidden">
+			<img src='https://imgs.xkcd.com/comics/wait_wait.png' id="comic" align="middle">
+		</div>
+	</body>
+</html> 
